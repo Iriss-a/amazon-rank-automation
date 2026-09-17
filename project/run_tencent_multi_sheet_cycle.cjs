@@ -9,6 +9,7 @@ const { loadProjectConfig, colorToChinese: mapColor } = require('./config/projec
 const { writeAndVerify } = require('./core/writeback_guard.cjs');
 const { formatBusinessDate } = require('./core/date_format.cjs');
 const { csvToSheet, encodeCol, encodeCell, decodeCell } = require('./core/sheet_grid.cjs');
+const { exportResults } = require('./core/structured_export.cjs');
 
 const root = __dirname;
 const bridge = path.join(root, 'bridge');
@@ -861,7 +862,16 @@ async function main() {
     // The local summary exists before the Tencent write phase, so a Tencent
     // outage never loses collected rankings or suppresses DingTalk notification.
     writeDailySummary(state);
-    if (!collectOnly) await flushTencentWritebacks(state, plans);
+    if (!collectOnly) {
+      await flushTencentWritebacks(state, plans);
+      try {
+        const exportDir = path.join(root, 'exports');
+        const exported = exportResults({ state, outputDir: exportDir, formats: ['jsonl', 'csv'] });
+        console.log('[STRUCTURED-EXPORT] ' + JSON.stringify({ count: exported.records.length, files: exported.generatedFiles }));
+      } catch (exportErr) {
+        console.warn('[STRUCTURED-EXPORT-FAILED] ' + (exportErr.message || String(exportErr)));
+      }
+    }
     state.finishedAt = collectOnly ? null : new Date().toISOString(); save(state);
     writeDailySummary(state);
     console.log('[SUMMARY] ' + JSON.stringify(summary(state)));
