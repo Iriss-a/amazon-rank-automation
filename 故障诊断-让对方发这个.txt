@@ -1,0 +1,18 @@
+如果采集结果明显异常，比如很多本来能看到的关键词被写成 "-"，请在对方电脑上执行：
+
+1. 打开 PowerShell。
+2. 进入安装目录，默认是：
+   %LOCALAPPDATA%\AmazonSheetRank
+3. 执行：
+   .\collect-diagnostics.ps1 -Sheets "32582","B06"
+
+把 PowerShell 输出的 amazon-sheet-rank-diagnostics-xxxx.zip 发回来。
+
+诊断包只包含版本、运行状态、采集日志、执行结果和对应 Sheet 状态。
+不会包含腾讯文档 token，也不会包含腾讯文档链接配置。
+
+同时请告知：
+- 对方使用的压缩包版本。
+- 具体哪个 Sheet/SPU。
+- 哪一天的结果。
+- 哪几个关键词被误判为 "-"; 最好截图标出来。

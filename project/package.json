@@ -1,0 +1,16 @@
+{
+  "name": "amazon-natural-rank-local-test",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Single Amazon natural-rank test using local Chrome and Playwright",
+  "scripts": {
+    "test:single": "node run_single_test.cjs",
+    "test:core": "node test_core_rules.cjs",
+    "scan:sheets": "node run_tencent_multi_sheet_cycle.cjs --scan-only",
+    "diagnose:location": "node diagnose_location_click.cjs"
+  },
+  "dependencies": {
+    "csv-parse": "^7.0.2",
+    "playwright": "^1.62.1"
+  }
+}

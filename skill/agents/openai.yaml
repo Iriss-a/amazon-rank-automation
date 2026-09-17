@@ -1,0 +1,6 @@
+interface:
+  display_name: "Amazon 单 Sheet 自然排名"
+  short_description: "按负责人独立运行一个 SPU/Sheet 的自然排名任务"
+  default_prompt: "Use $amazon-sheet-rank to run Amazon natural ranking for these assigned SPU/Sheets only: 918, B06."
+policy:
+  allow_implicit_invocation: true

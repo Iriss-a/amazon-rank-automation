@@ -1,0 +1,34 @@
+{
+  "amazon": {
+    "siteUrl": "https://www.amazon.com/",
+    "zip": "10001",
+    "maxPages": 10,
+    "brand": "MUSSHOE",
+    "chromeArgs": ["--incognito", "--start-maximized", "--disable-http2", "--disable-quic"]
+  },
+  "business": {
+    "timeZone": "America/Los_Angeles",
+    "staleSheetDays": 15
+  },
+  "writeback": {
+    "notFoundText": "-",
+    "defaultStyle": "COMMA"
+  },
+  "colors": {
+    "Nude": "裸色",
+    "Black": "黑色",
+    "White": "白色",
+    "Gold": "金色",
+    "Gold Pu": "金色PU",
+    "Silver": "银色",
+    "Beige": "米色",
+    "Brown": "棕色",
+    "Red": "红色",
+    "Blue": "蓝色",
+    "Pink": "粉色",
+    "Green": "绿色",
+    "Grey": "灰色",
+    "Gray": "灰色",
+    "Leopard": "豹纹"
+  }
+}

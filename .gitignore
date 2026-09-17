@@ -1,0 +1,36 @@
+# ---- Dependencies ----
+node_modules/
+.npm-cache/
+*.tsbuildinfo
+
+# ---- Local secrets: NEVER commit ----
+# Written by setup-token.ps1 (HKCU\Environment mirror) and setup-doc.ps1
+.tencent-docs-token
+tencent-doc-config.json
+*.token
+token.json
+.env
+.env.*
+
+# ---- Local runtime state ----
+# Bridge queue, per-keyword checkpoints, coordinator locks and rotated logs
+bridge/
+state/
+logs/
+profiles/
+latest-daily-summary.json
+tencent-multi-state.json
+tencent-multi-state.paused.json
+tencent-multi-state.coordinator.lock
+
+# ---- Diagnostics bundles ----
+amazon-sheet-rank-diagnostics-*.zip
+*-diagnostics-*.zip
+
+# ---- Editor / OS noise ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
