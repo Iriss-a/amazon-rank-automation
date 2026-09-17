@@ -18,10 +18,13 @@ bridge/
 state/
 logs/
 profiles/
+exports/
 latest-daily-summary.json
 tencent-multi-state.json
 tencent-multi-state.paused.json
 tencent-multi-state.coordinator.lock
+rank-export-*.jsonl
+rank-export-*.csv
 
 # ---- Diagnostics bundles ----
 amazon-sheet-rank-diagnostics-*.zip
