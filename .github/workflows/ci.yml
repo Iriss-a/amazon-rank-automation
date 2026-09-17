@@ -6,14 +6,19 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Nothing here needs to write to the repository. Declaring it keeps the
+# default GITHUB_TOKEN read-only even if a future step is added carelessly.
+permissions:
+  contents: read
+
 jobs:
   offline-regression:
     name: Offline regression (no network, no Tencent writes)
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 
@@ -25,9 +30,9 @@ jobs:
     name: Node syntax check
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 
@@ -49,7 +54,7 @@ jobs:
     name: Secret scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Fail if credentials or document links were committed
         run: |
