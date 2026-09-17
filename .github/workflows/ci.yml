@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  offline-regression:
+    name: Offline regression (no network, no Tencent writes)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run offline workflow regression
+        working-directory: project
+        run: node test_workflow.cjs
+
+  syntax-check:
+    name: Node syntax check
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Parse every .cjs entrypoint
+        shell: pwsh
+        run: |
+          $failed = @()
+          Get-ChildItem -Path project -Recurse -Filter *.cjs | ForEach-Object {
+            node --check $_.FullName
+            if ($LASTEXITCODE -ne 0) { $failed += $_.FullName }
+          }
+          if ($failed.Count) {
+            Write-Error "Syntax errors in: $($failed -join ', ')"
+            exit 1
+          }
+          Write-Host 'All .cjs files parsed successfully.'
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail if credentials or document links were committed
+        run: |
+          set -e
+          if grep -rInE 'docs\.qq\.com/sheet/[A-Za-z0-9]{6,}' \
+               --exclude-dir=.git --exclude='*.md' . ; then
+            echo "::error::A live Tencent document link was committed."
+            exit 1
+          fi
+          for f in project/.tencent-docs-token project/tencent-doc-config.json; do
+            if [ -e "$f" ]; then
+              echo "::error::$f must never be committed."
+              exit 1
+            fi
+          done
+          echo "No credentials or document links found."
