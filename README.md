@@ -3,6 +3,7 @@
 > 在腾讯文档（Tencent Docs Sheet）里维护的 Amazon US 关键词自然排名，按 SPU/Sheet 定向采集并回写——
 > 一条命令、一个常驻本地 runner、一个 browser Context 一个 Sheet。
 
+[![CI](https://github.com/Iriss-a/amazon-rank-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/Iriss-a/amazon-rank-automation/actions/workflows/ci.yml)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![Playwright](https://img.shields.io/badge/playwright-1.6x-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev)
 [![Platform](https://img.shields.io/badge/platform-Windows-0078D4)](#环境要求)
@@ -126,6 +127,7 @@ amazon-rank-automation/
 ├─ install-amazon-sheet-rank.ps1   # 安装器（复制 + 装依赖 + 配置 + 启动校验）
 ├─ 安装-Amazon单Sheet排名.cmd        # 双击入口
 ├─ 故障诊断-让对方发这个.txt         # 给非技术同事的一页说明
+├─ docs/DESIGN.md                  # 设计说明：为什么这么实现、每条约束的代价与局限
 ├─ skill/                          # Codex Skill 包装
 │  ├─ SKILL.md                     #   触发条件、执行流程、不变式
 │  ├─ agents/openai.yaml           #   展示名与默认 prompt
@@ -172,6 +174,8 @@ Chrome 冷启动 + 登录态建立很贵，而且频繁创建会显著提高被�
 
 **风控与节奏。**
 关键词之间保留 20–60 秒间隔；遇到阻断时有限次重建 Context 并只重试未完成的部分，恢复预算耗尽就暂停（保留 state），而不是继续消耗额度、也不是把结果写成 `-`。
+
+> 📐 上面每一条的完整推理（三值语义、Sponsored 为何要挤出计数序列、变体家族的四条证据门槛、写回契约、信任边界、非目标与已知局限）见 **[docs/DESIGN.md](docs/DESIGN.md)**。
 
 ---
 
