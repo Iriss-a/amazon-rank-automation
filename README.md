@@ -217,8 +217,12 @@ node test_workflow.cjs
 
 ## Roadmap
 
-- [ ] 把 Windows-only 的 PowerShell 编排层抽象成跨平台 CLI
-- [ ] 采集结果的结构化 export（CSV / JSON），便于接 BI
+跟踪在 [Issues](https://github.com/Iriss-a/amazon-rank-automation/issues) 里：
+
+- [ ] [#1](https://github.com/Iriss-a/amazon-rank-automation/issues/1) 把 Windows-only 的 PowerShell 编排层抽象成跨平台 CLI
+- [ ] [#2](https://github.com/Iriss-a/amazon-rank-automation/issues/2) 采集结果的结构化 export（CSV / JSON），便于接 BI
+- [ ] [#3](https://github.com/Iriss-a/amazon-rank-automation/issues/3) DOM 契约探针：把「采集能力已损坏」提前到启动自检阶段暴露
+- [ ] [#4](https://github.com/Iriss-a/amazon-rank-automation/issues/4) 为 `-` 判定留存证据快照，减少 `-RecheckNotFound` 的人工判断
 - [ ] 把 `core/` 的无副作用模块抽成独立包并补齐单测
 
 ---
